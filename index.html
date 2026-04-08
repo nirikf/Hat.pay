@@ -250,6 +250,13 @@
         }
         .btn-pulse { animation: pulseGlow 2.5s infinite; }
 
+        /* Telegram Widget Container */
+        .tg-widget-container {
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-top: 1px solid var(--border);
+        }
+
         /* Telegram Floating Button */
         .tg-float {
             position: fixed;
@@ -285,14 +292,14 @@
             font-size: 0.85rem;
             white-space: nowrap;
             opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            pointer-events: none;            transition: opacity 0.3s;
         }
         .tg-float:hover::after { opacity: 1; }
 
         footer {
             text-align: center;
-            padding: 40px 20px 100px;            color: var(--text-muted);
+            padding: 40px 20px 100px;
+            color: var(--text-muted);
             border-top: 1px solid var(--border);
             font-size: 0.85rem;
             margin-top: 40px;
@@ -333,15 +340,27 @@
                     </div>
                     <div class="platform-info">
                         <h3>Steam (Турция)</h3>
-                        <div class="platform-price">от 1 090 ₽</div>
-                    </div>
-                </div>
+                        <div class="platform-price">от 70 ₽</div>
+                    </div>                </div>
                 <i class="fas fa-chevron-down accordion-arrow"></i>
             </button>
             <div class="accordion-content">
                 <div class="products-grid">
                     <div class="product-card">
-                        <div class="product-title">Пополнение 10$</div>                        <div class="product-region">TR Region</div>
+                        <div class="product-title">Пополнение 0.49$</div>
+                        <div class="product-region">TR Region</div>
+                        <div class="product-price">70 ₽</div>
+                        <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=70&comment=Steam%200.49%24" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-title">Пополнение 5$</div>
+                        <div class="product-region">TR Region</div>
+                        <div class="product-price">550 ₽</div>
+                        <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=550&comment=Steam%205%24" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-title">Пополнение 10$</div>
+                        <div class="product-region">TR Region</div>
                         <div class="product-price">1 090 ₽</div>
                         <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=1090&comment=Steam%2010%24" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>
                     </div>
@@ -371,10 +390,19 @@
                     </div>
                     <div class="product-card">
                         <div class="product-title">Пополнение 100$</div>
-                        <div class="product-region">TR Region</div>
-                        <div class="product-price">9 990 ₽</div>
+                        <div class="product-region">TR Region</div>                        <div class="product-price">9 990 ₽</div>
                         <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=9990&comment=Steam%20100%24" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>
                     </div>
+                </div>
+                
+                <!-- Telegram Widget -->
+                <div class="tg-widget-container">
+                    <script async src="https://telegram.org/js/telegram-widget.js?23" 
+                            data-telegram-discussion="hat_pay" 
+                            data-comments-limit="5" 
+                            data-color="E22F38" 
+                            data-dark-color="F95C54">
+                    </script>
                 </div>
             </div>
         </div>
@@ -390,7 +418,8 @@
                         <h3>PlayStation Store (Турция)</h3>
                         <div class="platform-price">от 590 ₽</div>
                     </div>
-                </div>                <i class="fas fa-chevron-down accordion-arrow"></i>
+                </div>
+                <i class="fas fa-chevron-down accordion-arrow"></i>
             </button>
             <div class="accordion-content">
                 <div class="products-grid">
@@ -410,8 +439,7 @@
                         <div class="product-title">Карта 750 TL</div>
                         <div class="product-region">TR Region</div>
                         <div class="product-price">1 750 ₽</div>
-                        <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=1750&comment=PSN%20750%20TL" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>
-                    </div>
+                        <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=1750&comment=PSN%20750%20TL" class="btn btn-pulse" target="_blank" rel="noopener">Купить</a>                    </div>
                     <div class="product-card">
                         <div class="product-title">Карта 1000 TL</div>
                         <div class="product-region">TR Region</div>
@@ -439,7 +467,8 @@
         <p style="margin-top: 5px; font-size: 0.8rem; color: #555;">Цены могут меняться в зависимости от курса валют. Не является публичной офертой.</p>
     </footer>
 
-    <script>        // Accordion Toggle
+    <script>
+        // Accordion Toggle
         function toggleAccordion(element) {
             const content = element.nextElementSibling;
             const isActive = element.classList.contains('active');
@@ -459,8 +488,7 @@
 
         // Fade in animation on scroll
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
+            entries.forEach((entry, index) => {                if (entry.isIntersecting) {
                     setTimeout(() => {
                         entry.target.classList.add('visible');
                     }, index * 100);
