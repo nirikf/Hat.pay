@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hat.pay — И дело в шляпе</title>
+    <style>
+        :root {
+            --bg: #050505;
+            --card-bg: #0a0a0a;
+            --primary: #ff003c;
+            --primary-dark: #cc0030;
+            --text: #ffffff;
+            --text-muted: #888888;
+            --border: #1f1f1f;
+            --glow: rgba(255, 0, 60, 0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #1a050a 0%, var(--bg) 60%);
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 var(--glow); }
+            50% { box-shadow: 0 0 0 12px transparent; }
+        }
+        @keyframes textGlow {
+            0%, 100% { text-shadow: 0 0 10px rgba(255,0,60,0.3); }
+            50% { text-shadow: 0 0 25px rgba(255,0,60,0.7); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        header {
+            padding: 60px 20px 40px;
+            text-align: center;
+        }
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textGlow 4s infinite;
+            margin-bottom: 10px;
+        }
+        .slogan {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px 60px;
+        }
+
+        .instruction {
+            background: linear-gradient(135deg, rgba(255,0,60,0.05), rgba(255,0,60,0.02));
+            border: 1px solid rgba(255,0,60,0.2);
+            padding: 25px;
+            border-radius: 16px;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .instruction h3 { color: var(--primary); margin-bottom: 12px; font-size: 1.4rem; }
+        .instruction p { color: #ccc; margin-bottom: 8px; }
+        .tg-link {
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            border-bottom: 1px dashed var(--primary);
+            transition: all 0.3s;
+        }
+        .tg-link:hover { border-bottom-style: solid; text-shadow: 0 0 8px var(--glow); }
+
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(255,0,60,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5), 0 0 20px rgba(255,0,60,0.1);
+        }
+        .card:hover::before { opacity: 1; }
+
+        .card-img {
+            height: 150px;
+            background: linear-gradient(135deg, #151515, #0a0a0a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .card-body { padding: 22px; }
+        .card-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 4px; }
+        .card-platform { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px; }
+        
+        .card-price {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 18px;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(255,0,60,0.3);
+        }
+        .btn:active { transform: scale(0.98); }
+        .btn-pulse { animation: pulseGlow 2.5s infinite; }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 600px) {
+            .logo { font-size: 2.5rem; }
+            .products { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="fade-in">
+        <div class="logo">🎩 Hat.pay</div>
+        <p class="slogan">Покупай с Hat.pay — и дело в шляпе!</p>
+    </header>
+
+    <div class="container">
+        <div class="instruction fade-in">
+            <h3>🛒 Как получить код?</h3>
+            <p>1. Нажми <strong>"Купить"</strong> и оплати товар через ЮMoney</p>
+            <p>2. Сделай скриншот успешной оплаты</p>
+            <p>3. Отправь скриншот в Telegram: <a href="https://t.me/Gooseetler" class="tg-link" target="_blank">@Gooseetler</a></p>
+            <p style="margin-top: 10px; font-size: 0.9rem; color: #666;">⏱ Код приходит в течение 5-15 минут в рабочее время</p>
+        </div>
+
+        <div class="products">
+            <!-- Товар 1: Steam 500 -->            <div class="card fade-in">
+                <div class="card-img">🎮</div>
+                <div class="card-body">
+                    <h3 class="card-title">Steam Пополнение</h3>
+                    <p class="card-platform">Россия / Турция</p>
+                    <div class="card-price">500 ₽</div>
+                    <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=500&comment=Steam%20500" class="btn btn-pulse" target="_blank" rel="noopener">Купить сейчас</a>
+                </div>
+            </div>
+
+            <!-- Товар 2: Steam 1000 -->
+            <div class="card fade-in">
+                <div class="card-img">💳</div>
+                <div class="card-body">
+                    <h3 class="card-title">Steam Пополнение</h3>
+                    <p class="card-platform">Россия / Турция</p>
+                    <div class="card-price">1 000 ₽</div>
+                    <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=1000&comment=Steam%201000" class="btn btn-pulse" target="_blank" rel="noopener">Купить сейчас</a>
+                </div>
+            </div>
+
+            <!-- Товар 3: PS Store 1500 -->
+            <div class="card fade-in">
+                <div class="card-img">🎮</div>
+                <div class="card-body">
+                    <h3 class="card-title">PS Store Card</h3>
+                    <p class="card-platform">Россия (PSN RU)</p>
+                    <div class="card-price">1 500 ₽</div>
+                    <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=1500&comment=PS%20Store%201500" class="btn btn-pulse" target="_blank" rel="noopener">Купить сейчас</a>
+                </div>
+            </div>
+
+            <!-- Товар 4: Xbox Pass 800 -->
+            <div class="card fade-in">
+                <div class="card-img">🟢</div>
+                <div class="card-body">
+                    <h3 class="card-title">Xbox Game Pass</h3>
+                    <p class="card-platform">Ultimate 1 месяц</p>
+                    <div class="card-price">800 ₽</div>
+                    <a href="https://yoomoney.ru/quickpay/confirm.xml?receiver=4100119495697936&quickpay-form=donate&sum=800&comment=Xbox%20Pass%20800" class="btn btn-pulse" target="_blank" rel="noopener">Купить сейчас</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="fade-in">
+        <p>© 2026 Hat.pay. Моментальная доставка цифровых кодов.</p>
+        <p style="margin-top: 5px; font-size: 0.8rem;">Не является публичной офертой. Все права защищены.</p>
+    </footer>
+    <script>
+        // Анимации при скролле
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100);
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+  </html>
